@@ -3,11 +3,22 @@ import Banner from '@/assets/banner.png'
 import Image from 'next/image';
 import GymCard from '../Components/GymCard';
 
-const getdata = async() =>{
-   const res= await fetch('https://api.abcz.workers.dev/api/fitlog');
-   const data = await res.json();
-   return data;
-}
+const getdata = async () => {
+    try {
+        const res = await fetch('https://api.abcz.workers.dev/api/fitlog');
+
+        if (!res.ok) {
+            throw new Error("Failed to fetch data");
+        }
+
+        const data = await res.json();
+        return data;
+
+    } catch (error) {
+        console.log("Error fetching data:", error.message);
+        return null;
+    }
+};
 
 const workoutsPage = async() => {
 
